@@ -117,17 +117,20 @@ def manageFriendgroup():
     email = session['email']
     return render_template('manageFriendgroup.html', email=email)
 
+# Start of creating Friendgroup
 @app.route('/createFriendgroup')
 def createFriendgroup():
     email = session['email']
     return render_template('createFriendgroup.html',email=email)
 
+# Creating a Friendgroup
 @app.route('/createFriendgroupAuth', methods=['GET', 'POST'])
 def createFriendgroupAuth():
     email = session['email']
     friendgroup = request.form['friendgroup']
     description = request.form['description']
     cursor = conn.cursor()
+    # Check if friendgroup was already created
     query = 'SELECT * FROM Friendgroup WHERE owner_email = %s AND fg_name = %s'
     cursor.execute(query, (email, friendgroup))
     data = cursor.fetchone()
@@ -136,9 +139,11 @@ def createFriendgroupAuth():
         error = "This friendgroup is already created by you"
         return render_template('createFriendgroup.html', error=error)
     else:
+        # Create Friendgroup and insert into Friendgroup table
         ins = 'INSERT INTO Friendgroup VALUES(%s, %s, %s)'
         cursor.execute(ins, (email, friendgroup, description))
         conn.commit()
+        # Also insert owner into Belong table
         ins2 = 'INSERT INTO Belong VALUES(%s, %s, %s)'
         cursor.execute(ins2, (email, email, friendgroup))
         conn.commit()
@@ -354,16 +359,19 @@ def accdecauth():
         cursor.close()
         return redirect(url_for('manageTags'))
 
+# Start of deleting a friend
 @app.route('/deleteFriend')
 def deleteFriend():
     email=session['email']
     return render_template('deleteFriend.html', email=email)
 
+# Deleting a friend
 @app.route('/deleteFriendAuth', methods=['GET', 'POST'])
 def deleteFriendAuth():
     email=session['email']
     exfriend=request.form['exfriend']
     cursor=conn.cursor()
+    # Check if the friend exists
     query='SELECT * FROM Belong WHERE owner_email=%s AND email=%s'
     cursor.execute(query, (email, exfriend))
     data=cursor.fetchone()
@@ -372,9 +380,11 @@ def deleteFriendAuth():
         error="No such friend exists"
         return render_template('deleteFriend.html', error=error)
     else:
+        # Delete friend from the Belong table
         query2 = 'DELETE FROM Belong WHERE owner_email=%s AND email=%s'
         cursor.execute(query2, (email, exfriend))
         conn.commit()
+        # Delete friend from Tag table and all the other tags associated within that friendgroup
         query3 = 'DELETE FROM Tag WHERE email_tagger IN (SELECT email FROM Belong WHERE owner_email = %s) AND email_tagged=%s'
         cursor.execute(query3, (email, exfriend))
         conn.commit()
