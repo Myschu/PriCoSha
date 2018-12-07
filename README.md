@@ -20,10 +20,18 @@ Andrew was primarily in charge of:
 - Posting Content
 - Managing Friends
 - Creating FriendGroup (optional)
+SQL Queries used:
+- SELECT * FROM Friendgroup WHERE owner_email = %s AND fg_name = %s
+- INSERT INTO Friendgroup VALUES(%s, %s, %s)
+- INSERT INTO Belong VALUES(%s, %s, %s)
 
 Daniel was primarily in charge of:
 - Viewing Public Content
 - Managing Tags
 - Deleting Unwanted Friends (optional)
+SQL Queries used:
+- SELECT * FROM Belong WHERE owner_email=%s AND email=%s
+- DELETE FROM Belong WHERE owner_email=%s AND email=%s
+- DELETE FROM Tag WHERE email_tagger IN (SELECT email FROM Belong WHERE owner_email = %s) AND email_tagged=%s
 
 However, we have mainly worked on most parts together.
