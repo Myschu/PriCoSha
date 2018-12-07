@@ -1,0 +1,39 @@
+<html>
+<head>
+</head>
+<body>
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+
+Here are public content items from the last 24 hours:
+
+<table>
+	<th>Item ID</th>
+	<th>Email Post</th>
+	<th>Post Time</th>
+	<th>File Path</th>
+	<th>Item Name</th>
+
+{% for item in items %}
+	<tr>
+		<td>{{item.item_id}}</td>
+		<td>{{item.email_post}}</td>
+		<td>{{item.post_time}}</td>
+		<td>{{item.file_path}}</td>
+		<td>{{item.item_name}}</td>
+	</tr>
+{% endfor %}
+</table>
+
+<br>
+<br>
+<a href="/">Index Page</a>
+
+</body>
+
+
+</html>

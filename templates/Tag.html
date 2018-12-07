@@ -1,0 +1,34 @@
+<html>
+  
+<head>
+  
+</head>
+  
+<body>
+    
+Tag a friend:
+<form action="/tagAuth" method="POST">
+<input type = "text" name = "item_id" placeholder="item_id" required/>
+<br>
+<input type = "text" name= "tagged_email" placeholder= "tagged_email" required/>
+<br>
+</br>
+      
+<input type="submit" value = Submit />
+      {% if error %}
+      
+<p class="error"><strong>Error:</strong> {{error}}</p>
+      {% endif %}
+    
+</form>
+    
+<a href = "/manageTags">Go back</a>
+    
+<br>
+    
+<br>
+    
+<a href = "/home">Home</a>
+  
+</body>
+</html>

@@ -1,0 +1,27 @@
+<html>
+  <head>
+  </head>
+  <body>
+    Create a private post:
+    <form action="/createPrivatePostAuth" method="POST">
+      <input type = "text" name = "itemID" placeholder="itemID" required/> </br>
+      <input type = "text" name = "filePath" placeholder="filePath"/> </br>
+      <input type = "text" name = "itemName" placeholder="itemName"/> </br>
+      {% if groups %}
+      Which friendgroups do you want to share it with?<br>
+	{% for group in groups %}
+	<input type = "checkbox" name = "friendgroups" value = "{{group.fg_name}}">{{group.fg_name}}<br>
+	{% endfor %}
+	<br>
+      {% endif %}
+      <input type="submit" value = Submit />
+      {% if error %}
+      <p class="error"><strong>Error:</strong> {{error}}</p>
+      {% endif %}
+    </form>
+    <a href = "/managePosts">Go back</a>
+    <br>
+    <br>
+    <a href = "/home">Home</a>
+  </body>
+</html>

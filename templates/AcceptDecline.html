@@ -1,0 +1,55 @@
+<html>
+  
+<head>
+  
+</head>
+  
+<body>
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+{% if tags %}
+Accept or Decline Tags:
+    <table>
+      <th>Tagger</th>
+      <th>Item ID</th>
+      <th>Tagtime</t>
+
+{% for tag in tags %}
+<tr>
+  <td>{{tag.email_tagger}}</td>
+  <td>{{tag.item_id}}</td>
+  <td>{{tag.tagtime}}</td>
+  </tr>
+{% endfor %}
+</table>
+<br><br>
+<form action="/AcceptDeclineAuth" method="POST">
+  <input type = "text" name = "tagger" placeholder="tagger" required/> </br>
+  <input type = "text" name = "item_id" placeholder="item_id" required/> </br>
+  <input type = "radio" name = "decide" value ="accept">Accept
+  <input type = "radio" name = "decide" value ="decline">Decline
+  <input type = "hidden" name = "decide" value="nothing"></br>
+  
+<input type="submit" value = Submit />
+</form>
+{% endif %}
+{% if error %}
+      
+<p class="error"><strong>Error:</strong> {{error}}</p>
+      
+{% endif %}
+
+<br>
+<a href = "/manageTags">Go back</a>
+    
+<br>
+    
+<br>
+    
+<a href = "/home">Home</a>
+  
+</body>
+</html>
