@@ -26,6 +26,8 @@ SQL Queries used:
 - INSERT INTO Friendgroup VALUES(%s, %s, %s)
 - INSERT INTO Belong VALUES(%s, %s, %s)
 
+![alt text](https://github.com/andrewlee120/PriCoSha/blob/master/createFriendgroup.png)
+
 Daniel was primarily in charge of:
 - Viewing Public Content
 - Managing Tags
@@ -35,5 +37,7 @@ SQL Queries used:
 - SELECT * FROM Belong WHERE owner_email=%s AND email=%s
 - DELETE FROM Belong WHERE owner_email=%s AND email=%s
 - DELETE FROM Tag WHERE email_tagger IN (SELECT email FROM Belong WHERE owner_email = %s) AND email_tagged=%s
+
+![alt text](https://github.com/andrewlee120/PriCoSha/blob/master/deleteFriend.png)
 
 However, we have mainly worked on most parts together.
